@@ -137,7 +137,7 @@ async function postQuoteToServer(quote) {
   await fetch('https://jsonplaceholder.typicode.com/posts', {
     method: 'POST',
     body: JSON.stringify(quote),
-    headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    headers: { 'Content-Type': 'application/json; charset=UTF-8' } //  Fixed case
   });
 }
 
@@ -152,7 +152,7 @@ function resolveConflicts(serverQuotes, localQuotes) {
   return resolved;
 }
 
-async function syncWithServer() {
+async function syncQuotes() { //  Renamed from syncWithServer
   const serverQuotes = await fetchQuotesFromServer();
   const localQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
 
@@ -190,5 +190,5 @@ document.getElementById('categoryFilter').addEventListener('change', filterQuote
 loadQuotes();
 populateCategories();
 filterQuotes();
-syncWithServer();
-setInterval(syncWithServer, 60000); // Sync every 60s
+syncQuotes(); //  Renamed
+setInterval(syncQuotes, 60000); //  Periodic sync every 60s

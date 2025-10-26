@@ -133,6 +133,14 @@ async function fetchQuotesFromServer() {
   return data.map(post => ({ text: post.title, category: 'General' }));
 }
 
+async function postQuoteToServer(quote) {
+  await fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    body: JSON.stringify(quote),
+    headers: { 'Content-type': 'application/json; charset=UTF-8' }
+  });
+}
+
 function resolveConflicts(serverQuotes, localQuotes) {
   // Server takes precedence
   const resolved = [...serverQuotes];
